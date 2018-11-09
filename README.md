@@ -67,3 +67,34 @@ origin = Point(0,0,0);
 origin.1
 ```
 
+### Printing structs
+```rust
+#[derive(Debug)]
+struct Rectangle {
+  height: u32,
+  width: u32,
+}
+```
+
+### Struct methods
+```rust
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+}
+```
+
+## Enum
+```rust
+enum IpAddr {
+    V4,
+    V6,
+}
+
+// with data
+enum IpAddr {
+    V4(String),
+    V6(String),
+}
+```
