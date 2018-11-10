@@ -1,4 +1,5 @@
 # Rust Quick Reference
+Notes from the rust book: https://doc.rust-lang.org/stable/book/2018-edition
 
 
 ## Booleans
@@ -8,11 +9,127 @@
 ## Chars
 
 ## Strings
+```rust
+let mut s = String::new();
+let s: String = "initial contents".to_string();
+let s: String = String::from("initial contents");
+
+// append
+let mut s = String::from("foo");
+s.push_str("bar");
+
+let mut s = String::from("lo");
+s.push('l');
+
+
+let s1 = String::from("Hello, ");
+let s2 = String::from("world!");
+let s3 = s1 + &s2; // Note s1 has been moved here and can no longer be used
+
+let s1 = String::from("tic");
+let s2 = String::from("tac");
+let s3 = String::from("toe");
+
+let s = format!("{}-{}-{}", s1, s2, s3);
+
+// can crash if slice lands inside valid utf char
+let hello = "Здравствуйте";
+let s = &hello[0..4];
+
+// safer
+for c in "नमस्ते".chars() {
+    println!("{}", c);
+}
+
+for b in "नमस्ते".bytes() {
+    println!("{}", b);
+}
+```
 ### String Slices
 
 ## Tuples
 
 ## Arrays
+
+## Vector
+* `Vec<T>`
+* All elements must have the same type.
+ 
+```rust
+let v: Vec<i32> = Vec::new();
+let v = vec![1, 2, 3];
+let mut v = vec![2];
+v.push(2);
+ 
+// access
+let v = vec![1, 2, 3, 4, 5];
+let v_index = 2;
+
+match v.get(v_index) {
+    Some(_) => { println!("Reachable element at index: {}", v_index); },
+    None => { println!("Unreachable element at index: {}", v_index); }
+}
+
+// enumeration
+let v = vec![100, 32, 57];
+for i in &v {
+    println!("{}", i);
+}
+
+// mutable enumeration
+let mut v = vec![100, 32, 57];
+for i in &mut v {
+    *i += 50;
+}
+```
+
+## HashMap
+* `HashMap<K, V>`
+* All keys must have same type
+* All values must have same type
+* Only one value per key, latest wins
+
+```rust
+use std::collections::HashMap;
+
+let mut scores = HashMap::new();
+
+scores.insert(String::from("Blue"), 10);
+scores.insert(String::from("Yellow"), 50);
+
+// Build from list of pairs
+let teams  = vec![String::from("Blue"), String::from("Yellow")];
+let initial_scores = vec![10, 50];
+let scores: HashMap<_, _> = teams.iter().zip(initial_scores.iter()).collect();
+
+// access
+let mut scores = HashMap::new();
+
+scores.insert(String::from("Blue"), 10);
+scores.insert(String::from("Yellow"), 50);
+
+let team_name = String::from("Blue");
+let score = scores.get(&team_name); // returns an Option<u32>
+// insert only if new
+scores.entry(String::from("Green")).or_insert(50);
+
+// mutably update existing value
+for word in text.split_whitespace() {
+    let count = map.entry(word).or_insert(0);
+    *count += 1;
+}
+
+
+// iteration
+let mut scores = HashMap::new();
+
+scores.insert(String::from("Blue"), 10);
+scores.insert(String::from("Yellow"), 50);
+
+for (key, value) in &scores {
+    println!("{}: {}", key, value);
+}
+```
 
 ## Structs
 ### Object like struct
@@ -121,5 +238,134 @@ fn value_in_cents(coin: Coin) -> u32 {
         Coin::Dime => 10,
         Coin::Quarter => 25,
     }
+}
+```
+
+## if let
+
+ - unsafe, may panic, don't use?
+
+```rust
+let mut count = 0;
+if let Coin::Quarter = coin {
+    println!("It's a {}", coin);
+}
+
+// Can have an else
+if let Coin::Quarter = coin {
+    println!("It's a {}", coin);
+} else {
+    count += 1;
+}
+```
+
+# Code Organization
+
+## Modules
+```rust
+pub mod a {
+    pub mod series {
+        pub mod of {
+            pub fn nested_modules() {}
+        }
+    }
+}
+
+use a::series::of;
+
+fn main() {
+    of::nested_modules();
+}
+
+// importing enum variants
+enum TrafficLight {
+    Red,
+    Yellow,
+    Green,
+}
+
+use TrafficLight::{Red, Yellow};
+
+fn main() {
+    let red = Red;
+    let yellow = Yellow;
+    let green = TrafficLight::Green;
+}
+
+```
+
+```rust
+//namespace from root
+::something::else
+//namespace one up
+super::something::else
+# Cargo
+
+## Binary Project
+ - `cargo new project_name`
+
+## Library Project
+ - `cargo new library_name --lib`
+ 
+# Tests
+
+# Error Handling
+
+```rust
+panic!("Some message");
+```
+
+## Result handling
+```rust
+use std::fs::File;
+use std::io::ErrorKind;
+
+fn main() {
+    let f = File::open("hello.txt");
+
+    let f = match f {
+        Ok(file) => file,
+        Err(error) => match error.kind() {
+            ErrorKind::NotFound => match File::create("hello.txt") {
+                Ok(fc) => fc,
+                Err(e) => panic!("Tried to create file but there was a problem: {:?}", e),
+            },
+            other_error => panic!("There was a problem opening the file: {:?}", other_error),
+        },
+    };
+}
+```
+
+## the ? operator
+```rust
+use std::fs::File;
+use std::io::ErrorKind;
+
+fn main() {
+    let f = File::open("hello.txt");
+
+    let f = match f {
+        Ok(file) => file,
+        Err(error) => match error.kind() {
+            ErrorKind::NotFound => match File::create("hello.txt") {
+                Ok(fc) => fc,
+                Err(e) => panic!("Tried to create file but there was a problem: {:?}", e),
+            },
+            other_error => panic!("There was a problem opening the file: {:?}", other_error),
+        },
+    };
+}
+
+// chaining
+use std::io;
+use std::io::Read;
+use std::fs::File;
+
+fn read_username_from_file() -> Result<String, io::Error> {
+    let mut s = String::new();
+
+    File::open("hello.txt")?.read_to_string(&mut s)?;
+
+    Ok(s)
 }
 ```
