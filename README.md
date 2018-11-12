@@ -410,4 +410,12 @@ pub fn notify(item: impl Summary) {
 pub fn notify<T: Summary>(item: T) {
     println!("Breaking news! {}", item.summarize());
 }
+
+// long function sigs can use a where clause
+fn some_function<T, U>(t: T, u: U) -> i32
+    where T: Display + Clone,
+          U: Clone + Debug
+{
+  ...
+}
 ```
