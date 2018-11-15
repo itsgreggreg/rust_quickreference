@@ -57,13 +57,13 @@ for b in "नमस्ते".bytes() {
  
 ```rust
 // Creation
-let mut v1 = Vec::new();
-v1.push(1);
-v1.push(2);
+let mut vec1 = Vec::new();
+vec1.push(1);
+vec1.push(2);
 
-let v2 = vec![1, 2];
+let vec2 = vec![1, 2];
 
-assert_eq!(v1, v2);
+assert_eq!(vec1, vec2);
  
 // access
 let v = vec![1, 2, 3, 4, 5];
