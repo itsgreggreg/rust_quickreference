@@ -500,15 +500,6 @@ impl Iterator for Counter {
 }
 
 fn main() {
-  let a: Vec<usize> = vec![1,2,3];
-
-  let b:Vec<usize> = a.iter()
-    .map(|x| x + 1 )
-    .map(|x| x * 2 )
-    .collect();
-
-  assert_eq!(b, vec![4, 6, 8]);
-
   let c = Counter::new(13);
   for val in c {
     println!("Counter at {}", val);
