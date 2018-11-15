@@ -1,5 +1,6 @@
 # Rust Quick Reference
 Notes from the rust book: https://doc.rust-lang.org/stable/book/2018-edition
+Write Rust online: https://repl.it/site/languages/rust
 
 
 ## Booleans
