@@ -448,3 +448,70 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
     }
 }
 ```
+
+# Closures
+```rust
+|x| {
+  x + 2
+}
+```
+
+# Iterators
+- lazy, must be `collect()` ed
+
+```rust
+let a: Vec<usize> = vec![1,2,3];
+
+let b:Vec<usize> = a.iter()
+.map(|x| x + 1 )
+.map(|x| x * 2 )
+.collect();
+
+assert_eq!(b, vec![4, 6, 8]);
+```
+
+
+# Useful examples
+## Implementing the Iterator Trait
+``` rust
+struct Counter {
+  count: u32,
+  size: u32,
+}
+
+impl Counter {
+  fn new(size: u32) -> Counter {
+    Counter { count: 0, size: size }
+  }
+}
+
+impl Iterator for Counter {
+  type Item = u32;
+
+  fn next(&mut self) -> Option<u32> {
+    self.count = self.count + 1;
+
+    if self.count < self.size + 1 {
+      Some(self.count)
+    } else {
+      None
+    }
+  }
+}
+
+fn main() {
+  let a: Vec<usize> = vec![1,2,3];
+
+  let b:Vec<usize> = a.iter()
+    .map(|x| x + 1 )
+    .map(|x| x * 2 )
+    .collect();
+
+  assert_eq!(b, vec![4, 6, 8]);
+
+  let c = Counter::new(13);
+  for val in c {
+    println!("Counter at {}", val);
+  }
+}
+```
