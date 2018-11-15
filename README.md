@@ -56,10 +56,14 @@ for b in "नमस्ते".bytes() {
 * All elements must have the same type.
  
 ```rust
-let v: Vec<i32> = Vec::new();
-let v = vec![1, 2, 3];
-let mut v = vec![2];
-v.push(2);
+// Creation
+let mut v1 = Vec::new();
+v1.push(1);
+v1.push(2);
+
+let v2 = vec![1, 2];
+
+assert_eq!(v1, v2);
  
 // access
 let v = vec![1, 2, 3, 4, 5];
