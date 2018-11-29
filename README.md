@@ -538,3 +538,51 @@ fn count(name: &str, to: u32) -> () {
   }
 }
 ```
+
+### Channels
+```rust
+use std::sync::mpsc;
+use std::thread;
+use std::time::Duration;
+
+fn main() {
+  let (transmitter, receiver) = mpsc::channel();
+  let transmitter2 = mpsc::Sender::clone(&transmitter);
+
+  thread::spawn(move ||{
+    let vals: Vec<String> = vec![
+      String::from("<---(1)"),
+      String::from("<---(2)"),
+      String::from("<---(3)"),
+      String::from("<---(4)"),
+      String::from("<---(5)"),
+    ];
+    for val in vals {
+      transmitter.send(val).unwrap_or(());
+      thread::sleep(Duration::from_secs(1));
+    };
+  });
+
+  thread::spawn(move ||{
+    let vals: Vec<String> = vec![
+      String::from("---->(1)"),
+      String::from("---->(2)"),
+      String::from("---->(3)"),
+      String::from("---->(4)"),
+      String::from("---->(5)"),
+    ];
+    for val in vals {
+      transmitter2.send(val).unwrap_or(());
+      thread::sleep(Duration::from_secs(1));
+    };
+  });
+
+  println!("--main--");
+
+  
+  for received in receiver {
+    println!("{}", received);
+  }
+  
+}
+```
