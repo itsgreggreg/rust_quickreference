@@ -586,3 +586,33 @@ fn main() {
   
 }
 ```
+
+### Mutexes
+```rust
+use std::sync::{Arc, Mutex, MutexGuard, PoisonError};
+use std::thread;
+
+fn main() {
+    let counter = Arc::new(Mutex::new(0));
+    let mut handles = vec![];
+
+    for _ in 0..10 {
+        let counter = Arc::clone(&counter);
+        let handle = thread::spawn(move || {
+            let res: Result<MutexGuard<usize>, 
+                     PoisonError<MutexGuard<usize>>> = counter.lock();
+            match res {
+              Ok(mut num) => *num = *num + 1,
+              Err(_) => ()
+            }
+        });
+        handles.push(handle);
+    }
+
+    for handle in handles {
+        handle.join().unwrap();
+    }
+
+    println!("Result: {}", *counter.lock().unwrap());
+}
+```
