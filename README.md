@@ -507,3 +507,26 @@ fn main() {
   }
 }
 ```
+
+### Threads
+```rust
+use std::thread;
+use std::time::Duration;
+
+fn main() {
+  let handle = thread::spawn(|| {
+    count("------", 10)
+  });
+
+  count("main", 5);
+
+  handle.join().unwrap();
+}
+
+fn count(name: &str, to: u32) -> () {
+  for i in 1..to {
+    println!("Count {} from {}.", i, name);
+    thread::sleep(Duration::from_millis(1));
+  }
+}
+```
