@@ -627,3 +627,16 @@ fn main() {
     println!("Result: {}", *counter.lock().unwrap());
 }
 ```
+
+### Parsing numbers
+```rust
+fn high_and_low(numbers: &str) -> String {  
+  let mut max : i32 = std::i32::MIN;
+  let mut min : i32 = std::i32::MAX;
+  for n in numbers.split(" ") {
+    max = std::cmp::max(max, n.parse().unwrap());
+    min = std::cmp::min(min, n.parse().unwrap());
+  }
+  format!("{} {}", max, min)
+}
+```
