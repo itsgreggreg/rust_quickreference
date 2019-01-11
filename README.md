@@ -1,7 +1,7 @@
 # Rust Quick Reference
 * Notes from the rust book: https://doc.rust-lang.org/stable/book/2018-edition
-* Write Rust online: https://repl.it/site/languages/rust
-
+* Write Rust online: https://repl.it/site/languages/rust or https://play.rust-lang.com
+* Rust by example: https://doc.rust-lang.org/stable/rust-by-example/
 
 ## Booleans
 
