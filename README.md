@@ -54,6 +54,16 @@ for b in "नमस्ते".bytes() {
     println!("{}", b);
 }
 ```
+### Raw Strings
+https://doc.rust-lang.org/reference/tokens.html#raw-string-literals
+* Do not process any escapes
+```rust
+r#"
+  You can put "anything"
+  in here. And not need to
+  "escape" it.
+"#
+```
 ### String Slices
 
 ## Tuples
