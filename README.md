@@ -477,7 +477,7 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 ```
 
 # Iterators
-- lazy, must be `collect()` ed
+* lazy, must be `collect()` ed
 
 ```rust
 let a: Vec<usize> = vec![1,2,3];
@@ -488,6 +488,20 @@ let b:Vec<usize> = a.iter()
 .collect();
 
 assert_eq!(b, vec![4, 6, 8]);
+```
+
+# Attributes
+* For marking declarations with extra compiler information
+
+```
+fn add(l: i32, r: i32) -> i32 {
+    l + r
+}
+
+#[test]
+fn test_add() {
+    assert_eq!(add(40, 2), 42);
+}
 ```
 
 
