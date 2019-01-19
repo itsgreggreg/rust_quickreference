@@ -59,7 +59,7 @@ Required Escapes:
 |Character | Rust Char |
 |-|-|
 | Single Quote | `'\''` |
-| Backslash, | `'\\'` |
+| Backslash | `'\\'` |
 | Newline | `'\n'` |
 | Carriage Return | `'\r'` |
 | Tab | `'\t'` |
@@ -69,6 +69,7 @@ Required Escapes:
 assert_eq!('*', '\x2A');
 // Any unicode character can be written as `'\u{F}'` to `'\u{FFFFFF}'`
 assert_eq!('ಠ', '\u{CA0}');
+assert_eq!('\u{F}', '\x0F');
 ```
 
 ## Strings
