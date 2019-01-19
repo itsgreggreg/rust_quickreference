@@ -4,6 +4,9 @@
 * Rust by example: https://doc.rust-lang.org/stable/rust-by-example/
 
 ## Booleans
+* only `true` and `false`.
+* no other values are considered ether truthy or falsey and there is no conversion.
+* anywhere a bool is required, a bool must be used.
 
 ## Integers
 |Length | Signed | Unsigned|
@@ -26,7 +29,25 @@ let a: u8 = 42u8;
 let b: isize = 72isize;
 // can have arbitrarily inserted `_` for readability
 let a = 1_000;
-let b = 0b1001_0100
+let b = 0b1001_0100;
+// special syntax for ASCII literals, equivalent to u8
+assert_eq!(b'A', 65u8);
+assert_eq!(b'\\', 92u8);
+// different types cannot be compared directly
+assert_eq!(10_u8, 10_u16); // compile error
+// but can be  cast with `as` operator
+assert_eq!(10_u8 as u16, 10_u16);
+```
+
+## Floats
+* IEEE single and double precision types
+* `f32` single precision, at least 6 decimal digits
+* `f64` double precision, at least 15 decimal digits
+* defaults to `f64` if either would work
+
+```rust
+// general form
+1000.123e-4f64
 ```
 
 ## Chars
