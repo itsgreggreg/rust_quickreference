@@ -51,6 +51,25 @@ assert_eq!(10_u8 as u16, 10_u16);
 ```
 
 ## Chars
+* A single character wrapped in single quotes: `'A'`
+* Represents a single Unicode character as a 32 bit value
+
+Required Escapes:
+
+|Character | Rust Char |
+|-|-|
+| Single Quote | `'\''` |
+| Backslash, | `'\\'` |
+| Newline | `'\n'` |
+| Carriage Return | `'\r'` |
+| Tab | `'\t'` |
+
+```rust
+// if the char is in the ASCII range you can write it with `'\xFF'`
+assert_eq!('*', '\x2A');
+// Any unicode character can be written as `'\u{F}'` to `'\u{FFFFFF}'`
+assert_eq!('ಠ', '\u{CA0}');
+```
 
 ## Strings
 ```rust
