@@ -15,6 +15,20 @@
 |arch | isize | usize|
 
 
+* If any number type would work, rust defaults to i32
+* `0o` prefix for octal
+* `0x` prefix for hex
+* `0b` prefix for binary
+
+```rust
+// can be written literally with a type postfix
+let a: u8 = 42u8;
+let b: isize = 72isize;
+// can have arbitrarily inserted `_` for readability
+let a = 1_000;
+let b = 0b1001_0100
+```
+
 ## Chars
 
 ## Strings
