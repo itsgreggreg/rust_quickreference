@@ -122,6 +122,17 @@ r#"
 ### String Slices
 
 ## Tuples
+* a sequence of values, comma separated, enclosed in parenthesis: `('A', 1, true)`
+* values can be of any type
+* values can be referenced by numeric constant only
+* indexes are zero based
+
+```rust
+let a = ("hello", 4);
+assert_eq!(a.1, 4);
+let i = 0;
+assert_eq(a.i, "hello"); // compile error
+```
 
 ## Arrays
 
