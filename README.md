@@ -39,6 +39,8 @@ assert_eq!(10_u8, 10_u16); // compile error
 assert_eq!(10_u8 as u16, 10_u16);
 ```
 
+* defining a custom error: https://doc.rust-lang.org/rust-by-example/error/multiple_error_types/define_error_type.html
+
 ## Floats
 * IEEE single and double precision types
 * `f32` single precision, at least 6 decimal digits
