@@ -441,6 +441,21 @@ fn main() {
 }
 ```
 
+### Convenience methods
+* `resutl.is_ok()` - bool
+* `restult.is_err()` - bool
+* `result.ok()` - Option<success>
+* `result.err()` - Option<error>
+* `result.unrtap_or(default)` - success or default
+* `result.unwrap_or_else(function)` - success or run function
+* `result.as_ref()` - `Resutlt<T, E>` to `Result<&T, &E>`
+* `result.as_mut()` - `Resutlt<T, E>` to `Result<&mut T, &mut E>`
+-- unsafe
+* `result.unwrap()` - success or panic
+* `result.expect(message)` - success or panic with message
+
+
+
 ## the ? operator
 ```rust
 use std::fs::File;
