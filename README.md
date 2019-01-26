@@ -584,6 +584,7 @@ assert_eq!(b, vec![4, 6, 8]);
 ```
 
 # Attributes
+* https://doc.rust-lang.org/reference/attributes.html
 * For marking declarations with extra compiler information
 
 ```
