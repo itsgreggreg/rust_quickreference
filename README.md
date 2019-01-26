@@ -598,6 +598,12 @@ fn test_add() {
 }
 ```
 
+To apply an attribute to an entire crate, use `#!` at the top of `lib.rs` or `main.rs`
+
+```
+// top of src/main.rs
+#![allow(non_camel_case_types)]
+```
 
 # Useful examples
 ## Implementing the Iterator Trait
