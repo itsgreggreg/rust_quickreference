@@ -415,6 +415,36 @@ super::something::else
  - `cargo new library_name --lib`
  
 # Tests
+## Unit Tests
+* Ortinary function with a `#[test]` attribute
+* `cargo test` to run all tests in crate
+
+Use `should_panic` to assert a panic:
+```rust
+#[test]
+#[should_panic(expected="divide by zero")]
+def test_divide_by_zero() {
+  1 / 0;
+end
+```
+
+By convention, and if you need test helpers, put your tests in a test only module:
+```rust
+#[cfg(test)]
+mod tests {
+  #[test]
+  fn some_test() {
+    assert(some_test_helper())
+  }
+  
+  fn some_test_helper() -> bool{
+    true
+  }
+}
+
+## Doc Tests
+
+
 
 # Error Handling
 
