@@ -628,6 +628,16 @@ fn test_add() {
 }
 ```
 
+Multiple can be specified in one declaration
+
+```rust
+#[derive(Copy, Clone, Debug, PartialEq)]
+struct Point {
+  x: f64,
+  y: f64,
+}
+```
+
 To apply an attribute to an entire crate, use `#!` at the top of `lib.rs` or `main.rs`
 
 ```
